@@ -14,11 +14,28 @@ local function open_files(filepath)
 	end
 end
 
+---Builds the ranger command.
+---@param select_current_file boolean open ranger with the current buffer file selected.
+local function build_cmd(select_current_file)
+	local result = "ranger --choosefiles=" .. opts.tmp_filepath
+	if select_current_file then
+		result = result .. " --selectfile=" .. vim.fn.expand("%")
+	end
+	return result
+end
+
 ---Opens ranger in a new tab and will open selected files on exit.
-function M.open()
+---@param select_current_file boolean|nil open ranger and select the current file. Defaults to true.
+function M.open(select_current_file)
+	if select_current_file == nil then
+		select_current_file = true
+	end
+	local cmd = build_cmd(select_current_file)
+
 	local last_tabpage = vim.api.nvim_get_current_tabpage()
 	vim.cmd.tabnew()
-	vim.fn.termopen("ranger --choosefiles=" .. opts.tmp_filepath, {
+
+	vim.fn.termopen(cmd, {
 		on_exit = function()
 			vim.api.nvim_buf_delete(0, {})
 			vim.api.nvim_set_current_tabpage(last_tabpage)
