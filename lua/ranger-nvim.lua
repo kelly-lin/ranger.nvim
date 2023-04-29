@@ -59,7 +59,9 @@ end
 ---Optional setup to configure ranger.nvim.
 ---@param user_opts table|nil Configurable options: - tmp_filepath (string): location of temporary file.
 function M.setup(user_opts)
-	opts = user_opts or opts
+	if user_opts then
+		opts = vim.tbl_deep_extend("force", opts, user_opts)
+	end
 end
 
 return M
