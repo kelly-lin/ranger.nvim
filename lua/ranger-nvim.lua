@@ -24,7 +24,7 @@ local function build_cmd(select_current_file)
 	return result
 end
 
----Opens ranger in a new tab and will open selected files on exit.
+---Opens ranger and open selected files on exit.
 ---@param select_current_file boolean|nil open ranger and select the current file. Defaults to true.
 function M.open(select_current_file)
 	if select_current_file == nil then
@@ -32,14 +32,21 @@ function M.open(select_current_file)
 	end
 	local cmd = build_cmd(select_current_file)
 
-	local last_tabpage = vim.api.nvim_get_current_tabpage()
-	vim.cmd.tabnew()
+	local buf = vim.api.nvim_create_buf(false, true)
+	local last_win = vim.api.nvim_get_current_win()
+	vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = vim.o.columns,
+		height = vim.o.lines - vim.o.cmdheight,
+		row = 0,
+		col = 0,
+	})
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "" })
 
 	vim.fn.termopen(cmd, {
 		on_exit = function()
-			vim.api.nvim_buf_delete(0, {})
-			vim.api.nvim_set_current_tabpage(last_tabpage)
-
+			vim.api.nvim_win_close(0, true)
+			vim.api.nvim_set_current_win(last_win)
 			if vim.fn.filereadable(opts.tmp_filepath) == 1 then
 				open_files(opts.tmp_filepath)
 				vim.fn.delete(opts.tmp_filepath)
@@ -56,3 +63,4 @@ function M.setup(user_opts)
 end
 
 return M
+
