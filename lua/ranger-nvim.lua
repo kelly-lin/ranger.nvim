@@ -1,11 +1,12 @@
 local M = {}
 
-local TMP_FILEPATH = vim.fn.stdpath("cache") .. "/ranger_selected_file"
-
+---Configurable user options.
 local opts = {
-	tmp_filepath = TMP_FILEPATH,
+	tmp_filepath = vim.fn.stdpath("cache") .. "/ranger_selected_file",
 }
 
+---Opens all files in `filepath` in buffers.
+---@param filepath string
 local function open_files(filepath)
 	local selected_files = vim.fn.readfile(filepath)
 	for _, file in ipairs(selected_files) do
@@ -13,6 +14,7 @@ local function open_files(filepath)
 	end
 end
 
+---Opens ranger in a new tab and will open selected files on exit.
 function M.open()
 	local last_tabpage = vim.api.nvim_get_current_tabpage()
 	vim.cmd.tabnew()
@@ -30,6 +32,8 @@ function M.open()
 	vim.cmd.startinsert()
 end
 
+---Optional setup to configure ranger.nvim.
+---@param user_opts table|nil Configurable options: - tmp_filepath (string): location of temporary file.
 function M.setup(user_opts)
 	opts = user_opts or opts
 end
