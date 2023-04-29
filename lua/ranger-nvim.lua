@@ -27,6 +27,11 @@ end
 ---Opens ranger and open selected files on exit.
 ---@param select_current_file boolean|nil open ranger and select the current file. Defaults to true.
 function M.open(select_current_file)
+	if vim.fn.executable("ranger") ~= 1 then
+		vim.api.nvim_err_write("ranger executable not found, please check that ranger is installed and is in your path\n")
+    return
+	end
+
 	if select_current_file == nil then
 		select_current_file = true
 	end
@@ -63,5 +68,7 @@ function M.setup(user_opts)
 		opts = vim.tbl_deep_extend("force", opts, user_opts)
 	end
 end
+
+M.open(true)
 
 return M
