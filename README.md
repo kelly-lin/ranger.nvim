@@ -2,6 +2,10 @@
 
 [Ranger](https://github.com/ranger/ranger) plugin for neovim.
 
+## Dependencies
+
+- [Ranger](https://github.com/ranger/ranger)
+
 ## Install
 
 Install using your favourite package manager. This plugin ships with no keymaps
