@@ -66,11 +66,31 @@ are opened in neovim. You can override the keybindings using `ranger_nvim.setup(
 
 See below table for default keybindings.
 
+**Note: the keybinding string is in ranger keybinding syntax and not vim syntax
+(they are bindings for ranger)**
+
 | Keybinding  | Action |
 | ----------- | ------ |
 | `<CR>`, `l` (when selected on file) | Open files in current window |
 | `<C-v>`                             | Open files in vertical split |
 | `<C-o>`                             | Open files in horizontal split |
+
+### Overriding Keybindings
+
+The `ranger-nvim` module provides an `OPEN_MODE` enum which is used to control
+the open modes. To override keybinds, create an entry in the `keybinds` table
+with a `string` key in **ranger** keybinding syntax (the same syntax you would
+use in your `rc.conf`) and the value of an `OPEN_MODE` variant.
+
+```lua
+local ranger_nvim = require("ranger-nvim")
+ranger_nvim.setup({
+    keybinds = {
+      ["<C-v>"] = ranger_nvim.OPEN_MODE.vsplit,
+      ["<C-o>"] = ranger_nvim.OPEN_MODE.split,
+    },
+})
+```
 
 ## Contributing
 
