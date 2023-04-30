@@ -59,7 +59,7 @@ the current buffer on load.
 You can control how to open these files in Neovim by using the *ranger* [keybindings](#ranger-keybindings)
 that `ranger.nvim` sets.
 
-### Ranger Keybindings
+## Ranger Keybindings
 
 `ranger.nvim` sets *ranger* keybindings in order to control how selected files
 are opened in neovim. You can override the keybindings using `ranger_nvim.setup()`.
