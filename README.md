@@ -56,12 +56,12 @@ Opens `ranger` in a fullscreen floating window.
 When `select_current_file` is set to `true`, `ranger` will focus on the file in
 the current buffer on load.
 
-You can control how to open these files in Neovim by using the *ranger* [keybindings](#ranger-keybindings)
+You can control how to open these files in Neovim by using the [ranger keybindings](#ranger-keybindings)
 that `ranger.nvim` sets.
 
 ## Ranger Keybindings
 
-`ranger.nvim` sets *ranger* keybindings in order to control how selected files
+`ranger.nvim` sets `ranger` keybindings in order to control how selected files
 are opened in neovim. You can override the keybindings using `ranger_nvim.setup()`.
 
 See below table for default keybindings.
