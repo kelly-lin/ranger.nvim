@@ -3,24 +3,25 @@ local MODE_FILEPATH = vim.fn.stdpath("cache") .. "/ranger_mode"
 
 local M = {}
 
----@enum MODES
-M.MODES = {
+---@enum OPEN_MODE
+M.OPEN_MODE = {
 	vsplit = "vsplit",
-	hsplit = "hsplit",
+	split = "split",
 }
+
+---@alias Keybinds table<string, OPEN_MODE>
 
 ---Configurable user options.
 ---@class Options
 ---@field replace_netrw boolean
----@field keybinds table<integer, Keybind>
+---@field keybinds Keybinds
 local opts = {
 	replace_netrw = false,
-	keybinds = { { key = "<C-v>", mode = M.MODES.vsplit } },
+	keybinds = {
+		["<C-v>"] = M.OPEN_MODE.vsplit,
+		["<C-s>"] = M.OPEN_MODE.split,
+	},
 }
-
----@class Keybind
----@field key string key to map to.
----@field mode MODES the mode to open the files in.
 
 ---Opens all files in `filepath` using `open`.
 ---@param filepath string
@@ -65,12 +66,12 @@ end
 
 ---Transforms the `keybinds` into a `table<integer, string>` containing the
 ---ranger mapping commands.
----@param keybinds table<integer, Keybind> keybinds.
+---@param keybinds Keybinds keybinds.
 ---@return table<integer, string>
 local function create_cmd_values(keybinds)
 	local result = {}
-	for _, keybind in ipairs(keybinds) do
-		table.insert(result, create_map_cmd(keybind.key, keybind.mode, MODE_FILEPATH))
+	for keybind, mode in pairs(keybinds) do
+		table.insert(result, create_map_cmd(keybind, mode, MODE_FILEPATH))
 	end
 	return result
 end
@@ -115,7 +116,7 @@ local function get_open_func()
 		vsplit = function(filepath)
 			vim.cmd.vsplit(filepath)
 		end,
-		hsplit = function(filepath)
+		split = function(filepath)
 			vim.cmd.split(filepath)
 		end,
 	}
@@ -125,10 +126,10 @@ local function get_open_func()
 	end
 
 	local mode = vim.fn.readfile(MODE_FILEPATH)[1]
-	if mode == M.MODES.vsplit then
+	if mode == M.OPEN_MODE.vsplit then
 		return open.vsplit
-	elseif mode == M.MODES.hsplit then
-		return open.hsplit
+	elseif mode == M.OPEN_MODE.split then
+		return open.split
 	else
 		return open.current_win
 	end
