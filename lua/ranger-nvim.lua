@@ -72,8 +72,15 @@ function M.setup(user_opts)
 		opts = vim.tbl_deep_extend("force", opts, user_opts)
 	end
 	if opts.replace_netrw then
-		vim.cmd("silent! autocmd! FileExplorer *")
-		vim.cmd("autocmd VimEnter * ++once silent! autocmd! FileExplorer *")
+		vim.api.nvim_create_autocmd("VimEnter", {
+			pattern = "*",
+			callback = function()
+				if vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+					M.open(false)
+				end
+				return true
+			end,
+		})
 	end
 	if opts.disable_netrw then
 		vim.g.loaded_netrw = 1
@@ -82,3 +89,4 @@ function M.setup(user_opts)
 end
 
 return M
+
