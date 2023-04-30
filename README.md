@@ -24,8 +24,7 @@ configuration for example.
       end,
     })
   end,
-},
-,
+}
 ```
 
 ## Configuration
