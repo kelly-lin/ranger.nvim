@@ -24,8 +24,10 @@ configuration for example.
 
 ## Configuration
 
-Invoking `ranger_nvim.setup()` is is *optional*. You can configure `ranger.nvim`
-by invoking `ranger_nvim.setup()` with an options table described below.
+Invoking `ranger_nvim.setup()` is is *optional*.
+
+You can configure `ranger.nvim` by invoking `ranger_nvim.setup()` with an
+options table described below.
 
 | Key           | Type      | Default | Description                        |
 | ------------- | --------- | ------- | ---------------------------------- |
