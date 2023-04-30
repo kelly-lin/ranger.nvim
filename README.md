@@ -8,7 +8,7 @@
 
 ## Install
 
-Install using your package manager. This plugin does not set *Neovim* keymaps by
+Install using your package manager. This plugin *does not set* Neovim keymaps by
 default, you will need to set your own keymaps. See below [Lazy](https://github.com/folke/lazy.nvim)
 configuration for example.
 
