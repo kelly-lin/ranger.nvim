@@ -3,6 +3,8 @@ local M = {}
 ---Configurable user options.
 local opts = {
 	tmp_filepath = vim.fn.stdpath("cache") .. "/ranger_selected_file",
+	replace_netrw = true,
+	disable_netrw = true,
 }
 
 ---Opens all files in `filepath` in buffers.
@@ -28,8 +30,10 @@ end
 ---@param select_current_file boolean|nil open ranger and select the current file. Defaults to true.
 function M.open(select_current_file)
 	if vim.fn.executable("ranger") ~= 1 then
-		vim.api.nvim_err_write("ranger executable not found, please check that ranger is installed and is in your path\n")
-    return
+		vim.api.nvim_err_write(
+			"ranger executable not found, please check that ranger is installed and is in your path\n"
+		)
+		return
 	end
 
 	if select_current_file == nil then
@@ -66,6 +70,14 @@ end
 function M.setup(user_opts)
 	if user_opts then
 		opts = vim.tbl_deep_extend("force", opts, user_opts)
+	end
+	if opts.replace_netrw then
+		vim.cmd("silent! autocmd! FileExplorer *")
+		vim.cmd("autocmd VimEnter * ++once silent! autocmd! FileExplorer *")
+	end
+	if opts.disable_netrw then
+		vim.g.loaded_netrw = 1
+		vim.g.loaded_netrwPlugin = 1
 	end
 end
 
