@@ -69,6 +69,4 @@ function M.setup(user_opts)
 	end
 end
 
-M.open(true)
-
 return M
