@@ -6,10 +6,8 @@ local M = {}
 ---Configurable user options.
 ---@class Options
 ---@field replace_netrw boolean
----@field disable_netrw boolean
 local opts = {
 	replace_netrw = false,
-	disable_netrw = false,
 }
 
 ---@enum MODES
@@ -168,6 +166,8 @@ function M.open(select_current_file)
 end
 
 local function replace_netrw()
+	vim.g.loaded_netrw = 1
+	vim.g.loaded_netrwPlugin = 1
 	vim.api.nvim_create_autocmd("VimEnter", {
 		pattern = "*",
 		callback = function()
@@ -179,11 +179,6 @@ local function replace_netrw()
 	})
 end
 
-local function disable_netrw()
-	vim.g.loaded_netrw = 1
-	vim.g.loaded_netrwPlugin = 1
-end
-
 ---Optional setup to configure ranger.nvim.
 ---@param user_opts Options Configurable options.
 function M.setup(user_opts)
@@ -192,9 +187,6 @@ function M.setup(user_opts)
 	end
 	if opts.replace_netrw then
 		replace_netrw()
-	end
-	if opts.disable_netrw then
-		disable_netrw()
 	end
 end
 
