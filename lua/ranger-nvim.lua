@@ -3,18 +3,24 @@ local MODE_FILEPATH = vim.fn.stdpath("cache") .. "/ranger_mode"
 
 local M = {}
 
----Configurable user options.
----@class Options
----@field replace_netrw boolean
-local opts = {
-	replace_netrw = false,
-}
-
 ---@enum MODES
-local MODES = {
+M.MODES = {
 	vsplit = "vsplit",
 	hsplit = "hsplit",
 }
+
+---Configurable user options.
+---@class Options
+---@field replace_netrw boolean
+---@field keybinds table<integer, Keybind>
+local opts = {
+	replace_netrw = false,
+	keybinds = { { key = "<C-v>", mode = M.MODES.vsplit } },
+}
+
+---@class Keybind
+---@field key string key to map to.
+---@field mode MODES the mode to open the files in.
 
 ---Opens all files in `filepath` using `open`.
 ---@param filepath string
@@ -57,10 +63,6 @@ local function create_map_cmd(keybinding, mode, mode_filepath)
 	return string.format("map %s chain shell echo '%s' > %s; move right=1", keybinding, mode, mode_filepath)
 end
 
----@class Keybind
----@field key string key to map to.
----@field mode string the mode to open the files in.
-
 ---Transforms the `keybinds` into a `table<integer, string>` containing the
 ---ranger mapping commands.
 ---@param keybinds table<integer, Keybind> keybinds.
@@ -77,13 +79,12 @@ end
 ---@param select_current_file boolean open ranger with the current buffer file selected.
 ---@return string
 local function build_ranger_cmd(select_current_file)
-	local keybinds = { { key = "<C-v>", mode = MODES.vsplit } }
 	local selectfile_flag = select_current_file and " --selectfile=" .. vim.fn.expand("%") or ""
 	return string.format(
 		"ranger --choosefiles=%s %s %s",
 		SELECTED_FILEPATH,
 		selectfile_flag,
-		create_ranger_cmd_flags(create_cmd_values(keybinds))
+		create_ranger_cmd_flags(create_cmd_values(opts.keybinds))
 	)
 end
 
@@ -107,7 +108,7 @@ end
 
 ---@return function
 local function get_open_func()
-	local openers = {
+	local open = {
 		current_win = function(filepath)
 			vim.cmd.edit(filepath)
 		end,
@@ -120,16 +121,16 @@ local function get_open_func()
 	}
 
 	if vim.fn.filereadable(MODE_FILEPATH) ~= 1 then
-		return openers.current_win
+		return open.current_win
 	end
 
 	local mode = vim.fn.readfile(MODE_FILEPATH)[1]
-	if mode == MODES.vsplit then
-		return openers.vsplit
-	elseif mode == MODES.hsplit then
-		return openers.hsplit
+	if mode == M.MODES.vsplit then
+		return open.vsplit
+	elseif mode == M.MODES.hsplit then
+		return open.hsplit
 	else
-		return openers.current_win
+		return open.current_win
 	end
 end
 
