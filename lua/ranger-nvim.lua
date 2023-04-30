@@ -8,8 +8,8 @@ local M = {}
 ---@field replace_netrw boolean
 ---@field disable_netrw boolean
 local opts = {
-	replace_netrw = true,
-	disable_netrw = true,
+	replace_netrw = false,
+	disable_netrw = false,
 }
 
 ---@enum MODES
@@ -199,4 +199,3 @@ function M.setup(user_opts)
 end
 
 return M
-
