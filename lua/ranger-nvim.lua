@@ -19,7 +19,7 @@ local opts = {
 	replace_netrw = false,
 	keybinds = {
 		["<C-v>"] = M.OPEN_MODE.vsplit,
-		["<C-s>"] = M.OPEN_MODE.split,
+		["<C-o>"] = M.OPEN_MODE.split,
 	},
 }
 
