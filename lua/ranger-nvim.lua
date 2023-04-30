@@ -167,6 +167,7 @@ function M.open(select_current_file)
 	vim.cmd.startinsert()
 end
 
+---Disable and replace netrw with ranger.
 local function replace_netrw()
 	vim.g.loaded_netrw = 1
 	vim.g.loaded_netrwPlugin = 1
