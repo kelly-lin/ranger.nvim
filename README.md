@@ -48,10 +48,10 @@ local ranger_nvim = require("ranger-nvim")
 ranger_nvim.setup({
   replace_netrw = false,
   keybinds = {
-    ["ov"] = M.OPEN_MODE.vsplit,
-    ["oh"] = M.OPEN_MODE.split,
-    ["ot"] = M.OPEN_MODE.tabedit,
-    ["or"] = M.OPEN_MODE.rifle,
+    ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
+    ["oh"] = ranger_nvim.OPEN_MODE.split,
+    ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
+    ["or"] = ranger_nvim.OPEN_MODE.rifle,
   },
 })
 ```
@@ -108,10 +108,10 @@ use in your `rc.conf`) and assign it a value of an `OPEN_MODE` variant.
 local ranger_nvim = require("ranger-nvim")
 ranger_nvim.setup({
   keybinds = {
-    ["ov"] = M.OPEN_MODE.vsplit,
-    ["oh"] = M.OPEN_MODE.split,
-    ["ot"] = M.OPEN_MODE.tabedit,
-    ["or"] = M.OPEN_MODE.rifle,
+    ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
+    ["oh"] = ranger_nvim.OPEN_MODE.split,
+    ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
+    ["or"] = ranger_nvim.OPEN_MODE.rifle,
   },
 })
 ```
