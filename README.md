@@ -20,7 +20,7 @@ configuration for example.
     vim.api.nvim_set_keymap("n", "<leader>ef", "", {
       noremap = true,
       callback = function()
-          require("ranger-nvim").open(true)
+        require("ranger-nvim").open(true)
       end,
     })
   end,
