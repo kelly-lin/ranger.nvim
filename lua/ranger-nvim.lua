@@ -7,6 +7,7 @@ local M = {}
 M.OPEN_MODE = {
 	vsplit = "vsplit",
 	split = "split",
+	tabedit = "tabedit",
 }
 
 ---@alias Keybinds table<string, OPEN_MODE>
@@ -119,6 +120,9 @@ local function get_open_func()
 		split = function(filepath)
 			vim.cmd.split(filepath)
 		end,
+		tabedit = function(filepath)
+			vim.cmd.tabedit(filepath)
+		end,
 	}
 
 	if vim.fn.filereadable(MODE_FILEPATH) ~= 1 then
@@ -130,6 +134,8 @@ local function get_open_func()
 		return open.vsplit
 	elseif mode == M.OPEN_MODE.split then
 		return open.split
+	elseif mode == M.OPEN_MODE.tabedit then
+		return open.tabedit
 	else
 		return open.current_win
 	end
