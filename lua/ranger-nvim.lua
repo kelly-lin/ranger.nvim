@@ -142,6 +142,8 @@ local function get_open_func()
 		return open.split
 	elseif mode == M.OPEN_MODE.tabedit then
 		return open.tabedit
+	elseif mode == M.OPEN_MODE.rifle then
+		return open.rifle
 	else
 		return open.current_win
 	end
