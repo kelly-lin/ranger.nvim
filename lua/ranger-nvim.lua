@@ -20,10 +20,10 @@ M.OPEN_MODE = {
 local opts = {
 	replace_netrw = false,
 	keybinds = {
-		["<C-v>"] = M.OPEN_MODE.vsplit,
-		["<C-s>"] = M.OPEN_MODE.split,
-		["<C-t>"] = M.OPEN_MODE.tabedit,
-		["<C-o>"] = M.OPEN_MODE.rifle,
+		["ov"] = M.OPEN_MODE.vsplit,
+		["oh"] = M.OPEN_MODE.split,
+		["ot"] = M.OPEN_MODE.tabedit,
+		["os"] = M.OPEN_MODE.rifle,
 	},
 }
 
