@@ -66,6 +66,17 @@ the current buffer on load.
 You can control how to open these files in Neovim by using the [ranger keybindings](#ranger-keybindings)
 that `ranger.nvim` sets.
 
+### `enum OPEN_MODE`
+
+Enum to configure keybindings for open modes.
+
+| Variant | Action |
+| ------- | ------ |
+| `vsplit` | Open files in vertical split |
+| `split` | Open files in horizontal split |
+| `tabedit` | Open files in tab |
+| `rifle` | Open files with rifle |
+
 ## Ranger Keybindings
 
 `ranger.nvim` sets `ranger` keybindings in order to control how selected files
