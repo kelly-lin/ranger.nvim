@@ -8,6 +8,7 @@ M.OPEN_MODE = {
 	vsplit = "vsplit",
 	split = "split",
 	tabedit = "tabedit",
+	rifle = "rifle",
 }
 
 ---@alias Keybinds table<string, OPEN_MODE>
@@ -20,7 +21,9 @@ local opts = {
 	replace_netrw = false,
 	keybinds = {
 		["<C-v>"] = M.OPEN_MODE.vsplit,
-		["<C-o>"] = M.OPEN_MODE.split,
+		["<C-s>"] = M.OPEN_MODE.split,
+		["<C-t>"] = M.OPEN_MODE.tabedit,
+		["<C-o>"] = M.OPEN_MODE.rifle,
 	},
 }
 
@@ -122,6 +125,9 @@ local function get_open_func()
 		end,
 		tabedit = function(filepath)
 			vim.cmd.tabedit(filepath)
+		end,
+		rifle = function(filepath)
+			vim.fn.system({ "rifle", filepath })
 		end,
 	}
 
