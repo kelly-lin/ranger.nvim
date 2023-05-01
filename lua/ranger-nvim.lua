@@ -23,7 +23,7 @@ local opts = {
 		["ov"] = M.OPEN_MODE.vsplit,
 		["oh"] = M.OPEN_MODE.split,
 		["ot"] = M.OPEN_MODE.tabedit,
-		["os"] = M.OPEN_MODE.rifle,
+		["or"] = M.OPEN_MODE.rifle,
 	},
 }
 

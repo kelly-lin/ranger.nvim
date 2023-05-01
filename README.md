@@ -49,7 +49,7 @@ ranger_nvim.setup({
     ["ov"] = M.OPEN_MODE.vsplit,
     ["oh"] = M.OPEN_MODE.split,
     ["ot"] = M.OPEN_MODE.tabedit,
-    ["os"] = M.OPEN_MODE.rifle,
+    ["or"] = M.OPEN_MODE.rifle,
   },
 })
 ```
@@ -82,7 +82,7 @@ See below table for default keybindings.
 | `ov` | Open files in vertical split |
 | `oh` | Open files in horizontal split |
 | `ot` | Open files in tab |
-| `os` | Open files with rifle |
+| `or` | Open files with rifle |
 
 ### Overriding Keybindings
 
@@ -98,7 +98,7 @@ ranger_nvim.setup({
     ["ov"] = M.OPEN_MODE.vsplit,
     ["oh"] = M.OPEN_MODE.split,
     ["ot"] = M.OPEN_MODE.tabedit,
-    ["os"] = M.OPEN_MODE.rifle,
+    ["or"] = M.OPEN_MODE.rifle,
   },
 })
 ```
