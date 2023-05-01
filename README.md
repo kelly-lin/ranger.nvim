@@ -2,6 +2,8 @@
 
 [Ranger](https://github.com/ranger/ranger) integration plugin for neovim.
 
+https://user-images.githubusercontent.com/19686599/235407677-04066885-cb8a-43e1-9cee-479c8d4187e7.mov
+
 ## Dependencies
 
 - [Ranger](https://github.com/ranger/ranger)
