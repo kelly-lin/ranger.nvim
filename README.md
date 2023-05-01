@@ -82,7 +82,7 @@ See below table for default keybindings.
 | `ov` | Open files in vertical split |
 | `oh` | Open files in horizontal split |
 | `ot` | Open files in tab |
-| `os` | Open files in rifle |
+| `os` | Open files with rifle |
 
 ### Overriding Keybindings
 
