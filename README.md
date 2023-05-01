@@ -45,10 +45,12 @@ values.
 local ranger_nvim = require("ranger-nvim")
 ranger_nvim.setup({
   replace_netrw = false,
-    keybinds = {
-      ["<C-v>"] = ranger_nvim.OPEN_MODE.vsplit,
-      ["<C-o>"] = ranger_nvim.OPEN_MODE.split,
-    },
+  keybinds = {
+    ["ov"] = M.OPEN_MODE.vsplit,
+    ["oh"] = M.OPEN_MODE.split,
+    ["ot"] = M.OPEN_MODE.tabedit,
+    ["os"] = M.OPEN_MODE.rifle,
+  },
 })
 ```
 
@@ -77,8 +79,10 @@ See below table for default keybindings.
 | Keybinding  | Action |
 | ----------- | ------ |
 | `<CR>`, `l` (when selected on file) | Open files in current window |
-| `<C-v>`                             | Open files in vertical split |
-| `<C-o>`                             | Open files in horizontal split |
+| `ov` | Open files in vertical split |
+| `oh` | Open files in horizontal split |
+| `ot` | Open files in tab |
+| `os` | Open files in rifle |
 
 ### Overriding Keybindings
 
@@ -90,10 +94,12 @@ use in your `rc.conf`) and the value of an `OPEN_MODE` variant.
 ```lua
 local ranger_nvim = require("ranger-nvim")
 ranger_nvim.setup({
-    keybinds = {
-      ["<C-v>"] = ranger_nvim.OPEN_MODE.vsplit,
-      ["<C-o>"] = ranger_nvim.OPEN_MODE.split,
-    },
+  keybinds = {
+    ["ov"] = M.OPEN_MODE.vsplit,
+    ["oh"] = M.OPEN_MODE.split,
+    ["ot"] = M.OPEN_MODE.tabedit,
+    ["os"] = M.OPEN_MODE.rifle,
+  },
 })
 ```
 
