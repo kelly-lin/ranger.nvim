@@ -102,6 +102,7 @@ local function open_win()
 		height = vim.o.lines - vim.o.cmdheight,
 		row = 0,
 		col = 0,
+		style = "minimal",
 	})
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "" })
 end
