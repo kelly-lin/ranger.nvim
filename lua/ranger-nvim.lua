@@ -15,9 +15,11 @@ M.OPEN_MODE = {
 
 ---Configurable user options.
 ---@class Options
+---@field enable_cmds boolean set commands
 ---@field replace_netrw boolean
 ---@field keybinds Keybinds
 local opts = {
+	enable_cmds = false,
 	replace_netrw = false,
 	keybinds = {
 		["ov"] = M.OPEN_MODE.vsplit,
@@ -209,6 +211,9 @@ function M.setup(user_opts)
 	end
 	if opts.replace_netrw then
 		replace_netrw()
+	end
+	if opts.enable_cmds then
+		vim.cmd('command! Ranger lua require("ranger-nvim").open(true)')
 	end
 end
 
