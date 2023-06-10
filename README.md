@@ -37,7 +37,7 @@ do not invoke `ranger_nvim.setup()` `ranger.nvim` will use the default values.
 
 | Key           | Type      | Default | Description                        |
 | ------------- | --------- | ------- | ---------------------------------- |
-| enable_cmds | `boolean` | `false` | Set vim commands, see [](#commands). |
+| enable_cmds | `boolean` | `false` | Set vim commands, see [commands](#commands). |
 | replace_netrw | `boolean` | `false` | Replace `netrw` with `ranger` when neovim is launched with a directory argument. |
 | keybinds | `Keybind = table<string, OPEN_MODE>` | See [ranger keybindings](#ranger-keybindings). | Key bindings set in `ranger` to control how files are opened in neovim. See [ranger keybindings](#ranger-keybindings). |
 
