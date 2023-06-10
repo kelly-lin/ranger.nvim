@@ -84,7 +84,11 @@ end
 ---@param select_current_file boolean open ranger with the current buffer file selected.
 ---@return string
 local function build_ranger_cmd(select_current_file)
-	local selectfile_flag = select_current_file and " --selectfile=" .. vim.fn.expand("%") or ""
+	local selected_file = ""
+	if vim.fn.expand("%") then
+		selected_file = "'" .. vim.fn.expand("%") .. "'"
+	end
+	local selectfile_flag = select_current_file and " --selectfile=" .. selected_file
 	return string.format(
 		"ranger --choosefiles=%s %s %s",
 		SELECTED_FILEPATH,
