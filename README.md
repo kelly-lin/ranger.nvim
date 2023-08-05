@@ -40,7 +40,7 @@ do not invoke `ranger_nvim.setup()` `ranger.nvim` will use the default values.
 | `enable_cmds` | `boolean` | `false` | Set vim commands, see [commands](#commands). |
 | `keybinds` | `Keybind = table<string, OPEN_MODE>` | See [ranger keybindings](#ranger-keybindings). | Key bindings set in `ranger` to control how files are opened in neovim. See [ranger keybindings](#ranger-keybindings). |
 | `replace_netrw` | `boolean` | `false` | Replace `netrw` with `ranger` when neovim is launched with a directory argument. |
-| `ui` | `UI` | See [UI Configuration](#configuration---ui) | Settings for ranger window. |
+| `ui` | `UI` | See [UI Configuration](#configuration---ui). | Settings for ranger window. |
 
 See below code snippet for example configuring `ranger.nvim` with the default
 values.
@@ -73,8 +73,8 @@ ranger_nvim.setup({
 | `border` | `string` | `"none"` | See `:h nvim_open_win`. |
 | `height` | `number` | `1` | From 0 to 1 (0 = 0% of screen and 1 = 100% of screen). |
 | `width` | `number` | `1` | From 0 to 1 (0 = 0% of screen and 1 = 100% of screen). |
-| `x` | `number` | `"none"` | From 0 to 1 (0 = left most of screen and 1 = right most of screen). |
-| `y` | `number` | `"none"` | From 0 to 1 (0 = top most of screen and 1 = bottom most of screen). |
+| `x` | `number` | `0.5` | From 0 to 1 (0 = left most of screen and 1 = right most of screen). |
+| `y` | `number` | `0.5` | From 0 to 1 (0 = top most of screen and 1 = bottom most of screen). |
 
 ## API
 
