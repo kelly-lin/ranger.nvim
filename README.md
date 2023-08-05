@@ -2,7 +2,7 @@
 
 [Ranger](https://github.com/ranger/ranger) integration plugin for neovim.
 
-https://user-images.githubusercontent.com/19686599/235407677-04066885-cb8a-43e1-9cee-479c8d4187e7.mov
+[](https://user-images.githubusercontent.com/19686599/235407677-04066885-cb8a-43e1-9cee-479c8d4187e7.mov)
 
 ## Dependencies
 
@@ -35,11 +35,12 @@ You can configure `ranger.nvim` by invoking `ranger_nvim.setup()` with an
 options `table` described below. Note: `ranger_nvim.setup()` is *optional*, if you
 do not invoke `ranger_nvim.setup()` `ranger.nvim` will use the default values.
 
-| Key           | Type      | Default | Description                        |
-| ------------- | --------- | ------- | ---------------------------------- |
-| enable_cmds | `boolean` | `false` | Set vim commands, see [commands](#commands). |
-| replace_netrw | `boolean` | `false` | Replace `netrw` with `ranger` when neovim is launched with a directory argument. |
-| keybinds | `Keybind = table<string, OPEN_MODE>` | See [ranger keybindings](#ranger-keybindings). | Key bindings set in `ranger` to control how files are opened in neovim. See [ranger keybindings](#ranger-keybindings). |
+| Key | Type | Default | Description |
+| --- | ---- | ------- | ----------- |
+| `enable_cmds` | `boolean` | `false` | Set vim commands, see [commands](#commands). |
+| `keybinds` | `Keybind = table<string, OPEN_MODE>` | See [ranger keybindings](#ranger-keybindings). | Key bindings set in `ranger` to control how files are opened in neovim. See [ranger keybindings](#ranger-keybindings). |
+| `replace_netrw` | `boolean` | `false` | Replace `netrw` with `ranger` when neovim is launched with a directory argument. |
+| `ui` | `UI` | See [UI Configuration](#configuration---ui) | Settings for ranger window. |
 
 See below code snippet for example configuring `ranger.nvim` with the default
 values.
@@ -55,8 +56,17 @@ ranger_nvim.setup({
     ["ot"] = ranger_nvim.OPEN_MODE.tabedit,
     ["or"] = ranger_nvim.OPEN_MODE.rifle,
   },
+  ui = {
+    border = "none",
+  }
 })
 ```
+
+### Configuration - UI
+
+| Key | Type | Default | Value |
+| --- | ---- | ------- | ----- |
+| border | `string` | `"none"` | see `:h nvim_open_win` |
 
 ## API
 

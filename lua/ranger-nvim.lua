@@ -18,6 +18,10 @@ M.OPEN_MODE = {
 ---@field enable_cmds boolean set commands
 ---@field replace_netrw boolean
 ---@field keybinds Keybinds
+---@field ui UI
+
+---@class UI
+---@field border string (see ':h nvim_open_win')
 local opts = {
 	enable_cmds = false,
 	replace_netrw = false,
@@ -26,6 +30,9 @@ local opts = {
 		["oh"] = M.OPEN_MODE.split,
 		["ot"] = M.OPEN_MODE.tabedit,
 		["or"] = M.OPEN_MODE.rifle,
+	},
+	ui = {
+		border = "none",
 	},
 }
 
@@ -106,6 +113,7 @@ local function open_win()
 		relative = "editor",
 		width = vim.o.columns,
 		height = vim.o.lines - vim.o.cmdheight,
+		border = opts.ui.border,
 		row = 0,
 		col = 0,
 		style = "minimal",
@@ -113,6 +121,7 @@ local function open_win()
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "" })
 end
 
+---Clean up temporary files used to communicate between ranger and the plugin.
 local function clean_up()
 	vim.fn.delete(SELECTED_FILEPATH)
 	vim.fn.delete(MODE_FILEPATH)
