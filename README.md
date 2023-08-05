@@ -66,7 +66,7 @@ ranger_nvim.setup({
 
 | Key | Type | Default | Value |
 | --- | ---- | ------- | ----- |
-| border | `string` | `"none"` | see `:h nvim_open_win` |
+| `border` | `string` | `"none"` | see `:h nvim_open_win` |
 
 ## API
 
