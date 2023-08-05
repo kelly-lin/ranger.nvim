@@ -58,6 +58,10 @@ ranger_nvim.setup({
   },
   ui = {
     border = "none",
+    height = 1,
+    width = 1,
+    x = 0.5,
+    y = 0.5,
   }
 })
 ```
@@ -66,7 +70,11 @@ ranger_nvim.setup({
 
 | Key | Type | Default | Value |
 | --- | ---- | ------- | ----- |
-| `border` | `string` | `"none"` | see `:h nvim_open_win` |
+| `border` | `string` | `"none"` | See `:h nvim_open_win`. |
+| `height` | `number` | `1` | From 0 to 1 (0 = 0% of screen and 1 = 100% of screen). |
+| `width` | `number` | `1` | From 0 to 1 (0 = 0% of screen and 1 = 100% of screen). |
+| `x` | `number` | `"none"` | From 0 to 1 (0 = left most of screen and 1 = right most of screen). |
+| `y` | `number` | `"none"` | From 0 to 1 (0 = top most of screen and 1 = bottom most of screen). |
 
 ## API
 

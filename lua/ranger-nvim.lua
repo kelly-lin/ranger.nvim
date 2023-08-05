@@ -22,6 +22,12 @@ M.OPEN_MODE = {
 
 ---@class UI
 ---@field border string (see ':h nvim_open_win')
+---@field height number from 0 to 1 (0 = 0% of screen and 1 = 100% of screen)
+---@field width number from 0 to 1 (0 = 0% of screen and 1 = 100% of screen)
+---@field x number from 0 to 1 (0 = left most of screen and 1 = right most of
+---screen)
+---@field y number from 0 to 1 (0 = top most of screen and 1 = bottom most of
+---screen)
 local opts = {
 	enable_cmds = false,
 	replace_netrw = false,
@@ -33,6 +39,10 @@ local opts = {
 	},
 	ui = {
 		border = "none",
+		height = 1,
+		width = 1,
+		x = 0.5,
+		y = 0.5,
 	},
 }
 
@@ -109,13 +119,17 @@ end
 ---Open a window for ranger to run in.
 local function open_win()
 	local buf = vim.api.nvim_create_buf(false, true)
+	local win_height = math.ceil(vim.o.lines * opts.ui.height)
+	local win_width = math.ceil(vim.o.columns * opts.ui.width)
+	local row = math.ceil((vim.o.lines - win_height) * opts.ui.y - 1)
+	local col = math.ceil((vim.o.columns - win_width) * opts.ui.x)
 	vim.api.nvim_open_win(buf, true, {
 		relative = "editor",
-		width = vim.o.columns,
-		height = vim.o.lines - vim.o.cmdheight,
+		width = win_width,
+		height = win_height,
 		border = opts.ui.border,
-		row = 0,
-		col = 0,
+		row = row,
+		col = col,
 		style = "minimal",
 	})
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "" })
