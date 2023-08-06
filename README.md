@@ -12,7 +12,8 @@ no dependencies besides `ranger`.
 ## Install
 
 Install using your package manager. This plugin *does not set* Neovim keymaps by
-default, you will need to set your own keymaps. See below [Lazy](https://github.com/folke/lazy.nvim)
+default, you will need to set your own keymaps using the exposed [api](#api).
+See below [Lazy](https://github.com/folke/lazy.nvim)
 configuration for example.
 
 ```lua
