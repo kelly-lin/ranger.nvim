@@ -1,6 +1,7 @@
 # ranger.nvim
 
-[Ranger](https://github.com/ranger/ranger) integration plugin for neovim.
+[Ranger](https://github.com/ranger/ranger) integration plugin for neovim with
+no dependencies besides `ranger`.
 
 [](https://user-images.githubusercontent.com/19686599/235407677-04066885-cb8a-43e1-9cee-479c8d4187e7.mov)
 
