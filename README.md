@@ -140,8 +140,11 @@ ranger_nvim.setup({
 
 ## Commands
 
-Commands are disabled by default, they can be enabled by setting `enable_cmds =
+Commands are *disabled by default*, they can be enabled by setting `enable_cmds =
 true` in `ranger_nvim.setup()`.
+
+Below shows the mapping of commands to lua equivalents. See [api](#api) for more
+info.
 
 | Command | Lua |
 |---------|-----|
