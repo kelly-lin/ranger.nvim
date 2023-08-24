@@ -107,7 +107,7 @@ local function build_ranger_cmd(select_current_file)
 	if vim.fn.expand("%") then
 		selected_file = "'" .. vim.fn.expand("%") .. "'"
 	end
-	local selectfile_flag = select_current_file and " --selectfile=" .. selected_file
+	local selectfile_flag = select_current_file and " --selectfile=" .. selected_file or ""
 	return string.format(
 		"ranger --choosefiles=%s %s %s",
 		SELECTED_FILEPATH,
