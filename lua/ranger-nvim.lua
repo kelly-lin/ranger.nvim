@@ -17,6 +17,7 @@ M.OPEN_MODE = {
 ---@class Options
 ---@field enable_cmds boolean set commands
 ---@field replace_netrw boolean
+---@field close_deleted_files boolean
 ---@field keybinds Keybinds
 ---@field ui UI
 
@@ -31,6 +32,7 @@ M.OPEN_MODE = {
 local opts = {
 	enable_cmds = false,
 	replace_netrw = false,
+    close_deleted_files = false,
 	keybinds = {
 		["ov"] = M.OPEN_MODE.vsplit,
 		["oh"] = M.OPEN_MODE.split,
@@ -222,7 +224,10 @@ function M.open(select_current_file)
 	clean_up()
 
 	-- Store buffers that are open (and not empty) prior to running ranger
-	local buffers_for_existing_files = get_buffers_for_existing_files()
+	local buffers_for_existing_files
+    if opts.close_deleted_files then
+        buffers_for_existing_files = get_buffers_for_existing_files()
+    end
 
 	local cmd = build_ranger_cmd(select_current_file)
 	local last_win = vim.api.nvim_get_current_win()
@@ -235,10 +240,13 @@ function M.open(select_current_file)
 				open_files(SELECTED_FILEPATH, get_open_func())
 			end
 			clean_up()
+
 			-- Close any buffers that were previously pointing to existing files, but don't
 			-- after running ranger. This should close any buffers for files which were
 			-- deleted using ranger.
-			close_empty_buffers(buffers_for_existing_files)
+            if opts.close_deleted_files then
+                close_empty_buffers(buffers_for_existing_files)
+            end
 		end,
 	})
 	vim.cmd.startinsert()
