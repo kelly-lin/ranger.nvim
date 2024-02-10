@@ -42,6 +42,7 @@ do not invoke `ranger_nvim.setup()` `ranger.nvim` will use the default values.
 | `enable_cmds` | `boolean` | `false` | Set vim commands, see [commands](#commands). |
 | `keybinds` | `Keybind = table<string, OPEN_MODE>` | See [ranger keybindings](#ranger-keybindings). | Key bindings set in `ranger` to control how files are opened in neovim. See [ranger keybindings](#ranger-keybindings). |
 | `replace_netrw` | `boolean` | `false` | Replace `netrw` with `ranger` when neovim is launched with a directory argument. |
+| `close_deleted_files` | `boolean` | `false` | Attempt to close buffers for files that were deleted with `ranger`. |
 | `ui` | `UI` | See [UI Configuration](#configuration---ui). | Settings for ranger window. |
 
 See below code snippet for example configuring `ranger.nvim` with the default
@@ -52,6 +53,7 @@ local ranger_nvim = require("ranger-nvim")
 ranger_nvim.setup({
   enable_cmds = false,
   replace_netrw = false,
+    close_deleted_files = false,
   keybinds = {
     ["ov"] = ranger_nvim.OPEN_MODE.vsplit,
     ["oh"] = ranger_nvim.OPEN_MODE.split,

@@ -17,6 +17,7 @@ M.OPEN_MODE = {
 ---@class Options
 ---@field enable_cmds boolean set commands
 ---@field replace_netrw boolean
+---@field close_deleted_files boolean
 ---@field keybinds Keybinds
 ---@field ui UI
 
@@ -31,6 +32,7 @@ M.OPEN_MODE = {
 local opts = {
 	enable_cmds = false,
 	replace_netrw = false,
+	close_deleted_files = false,
 	keybinds = {
 		["ov"] = M.OPEN_MODE.vsplit,
 		["oh"] = M.OPEN_MODE.split,
@@ -135,6 +137,32 @@ local function open_win()
 	vim.api.nvim_win_set_option(win, "winhl", "NormalFloat:Normal")
 end
 
+---Returns a table with the names of all the currently listed buffers, which point to existing filenames.
+local function get_buffers_for_existing_files()
+	local buffers = {}
+
+	for buffer_nr = 1, vim.fn.bufnr("$") do
+		if vim.fn.buflisted(buffer_nr) == 1 then
+			local bufname = vim.fn.bufname(buffer_nr)
+			if vim.fn.filereadable(bufname) == 1 then
+				table.insert(buffers, bufname)
+			end
+		end
+	end
+
+	return buffers
+end
+
+---Closes any buffers from the given table of buffer names which point to files that don't exist
+---@param buffers table<string>
+local function close_empty_buffers(buffers)
+	for _, buffer in ipairs(buffers) do
+		if vim.fn.filereadable(buffer) ~= 1 then
+			vim.cmd.bdelete(buffer)
+		end
+	end
+end
+
 ---Clean up temporary files used to communicate between ranger and the plugin.
 local function clean_up()
 	vim.fn.delete(SELECTED_FILEPATH)
@@ -195,6 +223,12 @@ function M.open(select_current_file)
 
 	clean_up()
 
+	-- Store buffers that are open (and not empty) prior to running ranger
+	local buffers_for_existing_files
+	if opts.close_deleted_files then
+		buffers_for_existing_files = get_buffers_for_existing_files()
+	end
+
 	local cmd = build_ranger_cmd(select_current_file)
 	local last_win = vim.api.nvim_get_current_win()
 	open_win()
@@ -206,6 +240,13 @@ function M.open(select_current_file)
 				open_files(SELECTED_FILEPATH, get_open_func())
 			end
 			clean_up()
+
+			-- Close any buffers that were previously pointing to existing files, but don't
+			-- after running ranger. This should close any buffers for files which were
+			-- deleted using ranger.
+			if opts.close_deleted_files then
+				close_empty_buffers(buffers_for_existing_files)
+			end
 		end,
 	})
 	vim.cmd.startinsert()
