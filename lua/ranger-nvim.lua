@@ -102,18 +102,45 @@ end
 ---Builds the ranger command to be executed with open().
 ---@param select_current_file boolean open ranger with the current buffer file selected.
 ---@return string
+---
+---
+local function get_absolute_argument()
+	-- Access the first argument passed to Neovim
+	local arg = vim.fn.argv(0) -- 0 is the index for the first argument
+
+	-- Get the absolute path of the argument
+	local absolute_path = vim.fn.fnamemodify(arg, ":p")
+
+	-- Print the absolute path
+	-- print("Absolute path of the argument: " .. absolute_path)
+
+	return absolute_path
+end
+---
+---
+---
 local function build_ranger_cmd(select_current_file)
 	local selected_file = ""
 	if vim.fn.expand("%") then
 		selected_file = "'" .. vim.fn.expand("%") .. "'"
 	end
 	local selectfile_flag = select_current_file and " --selectfile=" .. selected_file or ""
-	return string.format(
-		"ranger --choosefiles=%s %s %s",
-		SELECTED_FILEPATH,
-		selectfile_flag,
-		create_ranger_cmd_flags(create_cmd_values(opts.keybinds))
-	)
+	if select_current_file then
+		return string.format(
+			"ranger --choosefiles=%s %s %s",
+			SELECTED_FILEPATH,
+			selectfile_flag,
+			create_ranger_cmd_flags(create_cmd_values(opts.keybinds))
+		)
+	else
+		vim.api.nvim_buf_delete(1, { force = true })
+		return string.format(
+			"ranger --choosefiles=%s %s %s",
+			SELECTED_FILEPATH,
+			" --selectfile=" .. get_absolute_argument(),
+			create_ranger_cmd_flags(create_cmd_values(opts.keybinds))
+		)
+	end
 end
 
 ---Open a window for ranger to run in.
