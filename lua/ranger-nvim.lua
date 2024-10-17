@@ -135,10 +135,10 @@ local function build_ranger_cmd(select_current_file)
 	else
 		vim.api.nvim_buf_delete(1, { force = true })
 		return string.format(
-			"ranger --choosefiles=%s %s %s",
+			"ranger  --choosefiles=%s %s %s",
 			SELECTED_FILEPATH,
-			" --selectfile=" .. get_absolute_argument(),
-			create_ranger_cmd_flags(create_cmd_values(opts.keybinds))
+			create_ranger_cmd_flags(create_cmd_values(opts.keybinds)),
+			get_absolute_argument()
 		)
 	end
 end
