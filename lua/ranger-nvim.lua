@@ -160,6 +160,7 @@ local function open_win()
 		style = "minimal",
 	})
 	vim.api.nvim_win_set_option(win, "winhl", "NormalFloat:Normal")
+	vim.api.nvim_buf_set_option(buf, "filetype", "ranger")
 end
 
 ---Clean up temporary files used to communicate between ranger and the plugin.
