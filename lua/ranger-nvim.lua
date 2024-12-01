@@ -207,6 +207,10 @@ local function get_open_func()
 	end
 end
 
+local terminal_buf = nil
+local terminal_win = nil
+local last_win = nil
+
 ---Opens ranger and open selected files on exit.
 ---@param select_current_file boolean|nil open ranger and select the current file. Defaults to true.
 function M.open(select_current_file)
@@ -221,15 +225,41 @@ function M.open(select_current_file)
 		select_current_file = true
 	end
 
+	-- Store the current window before any operations
+	last_win = last_win or vim.api.nvim_get_current_win()
+
+	-- If terminal buffer exists but window is hidden, show it
+	if terminal_buf and vim.api.nvim_buf_is_valid(terminal_buf) then
+		if terminal_win and vim.api.nvim_win_is_valid(terminal_win) then
+			-- Hide window
+			vim.api.nvim_win_close(terminal_win, true)
+			terminal_win = nil
+			vim.api.nvim_set_current_win(last_win)
+		else
+			open_win()
+			terminal_win = vim.api.nvim_get_current_win()
+			vim.api.nvim_win_set_buf(terminal_win, terminal_buf)
+			vim.cmd.startinsert()
+		end
+		return
+	end
+
 	clean_up()
 
 	local cmd = build_ranger_cmd(select_current_file)
-	local last_win = vim.api.nvim_get_current_win()
 	open_win()
+	terminal_win = vim.api.nvim_get_current_win()
+	terminal_buf = vim.api.nvim_get_current_buf()
+
 	vim.fn.termopen(cmd, {
 		on_exit = function()
-			vim.api.nvim_win_close(0, true)
-			vim.api.nvim_set_current_win(last_win)
+			if terminal_win and vim.api.nvim_win_is_valid(terminal_win) then
+				vim.api.nvim_win_close(terminal_win, true)
+				vim.api.nvim_set_current_win(last_win)
+			end
+			terminal_win = nil
+			terminal_buf = nil
+			last_win = nil
 			if vim.fn.filereadable(SELECTED_FILEPATH) == 1 then
 				open_files(SELECTED_FILEPATH, get_open_func())
 			end
